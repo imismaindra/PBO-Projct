@@ -1,19 +1,41 @@
 <?php
-require_once('domain_object/node_role.php');
+require_once 'model/role_model.php';
+session_start();
+if (isset($_GET['modul'])) {
+    $modul = $_GET['modul'];
+} else {
+    $modul = 'dashboard';
+}
 
-$obj_role = [];
-$obj_role[] = new Role(1, "Kasir", "Dibua untuk kasir", 1);
-$obj_role[] = new Role(2, "Admin", "Dibua untuk Admin", 1);
-$obj_role[] = new Role(3, "Owner", "Dibua untuk Owner", 0);
-$obj_role[] = new Role(4, "Customer", "Dibua untuk Customer", 1);
+switch ($modul) {
+    case 'dashboard':
+        include 'views/kosong.php';
+        break;
+    case 'role';
+        $fitur = isset($_GET['fitur']) ? $_GET['fitur'] : null;
+        $obj_role = new RoleModel();
+        echo $fitur;
+        switch ($fitur) {
+            case 'add':
+                $role_name = $_POST['role_name'];
+                $role_desc =  $_POST['role_description'];
+                $role_status =  $_POST['role_status'];
+
+                $obj_role->addRole($role_name, $role_desc, $role_status);
+
+                header('location: index.php?modul=role');
+                break;
+
+            default:
+                $roles = $obj_role->getRoles();
+                include 'views/role_list.php';
+                break;
+        }
 
 
-// foreach($obj_role as $role){
-//     echo "Id Role : ".$role->role_id."<br>";
-//     echo "Nama Role : ".$role->role_name."<br>";
-//     echo "Deskirpsi Role : ".$role->role_description."<br>";
-//     echo "Status Role : ".$role->role_status."<br>";
-// }
+        break;
 
-include 'views/role_list.php';
-?>
+    default:
+        # code...
+        break;
+}
