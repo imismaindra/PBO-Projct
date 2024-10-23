@@ -1,4 +1,4 @@
-<div class="w-64 bg-gray-800 text-gray-100 h-screen">
+<div :class="{ '-ml-64': !sidebarOpen }" class="w-64 bg-gray-800 text-gray-100 h-screen transition-all duration-300 ease-in-out">
     <div class="p-4 font-bold text-lg">Menu</div>
     <ul class="mt-4 space-y-2">
         <li class="group">
