@@ -6,9 +6,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Input Role</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/alpinejs/2.8.0/alpine.js"></script>
+
 </head>
 
-<body class="bg-gray-100 font-sans leading-normal tracking-normal">
+<body class="bg-gray-100 font-sans leading-normal tracking-normal" x-data="{ sidebarOpen: true }">
 
     <!-- Navbar -->
     <?php include 'includes/navbar.php'; ?>
@@ -16,7 +18,9 @@
     <!-- Main container -->
     <div class="flex">
         <!-- Sidebar -->
-        <?php include 'includes/sidebar.php'; ?>
+        <div :class="sidebarOpen ? 'translate-x-0 ' : '-translate-x-full transition-all duration-300 ease-in-out'" class="flex h-screen">
+            <?php include 'includes/sidebar.php'; ?>
+        </div>
 
         <!-- Main Content -->
         <div class="flex-1 p-8">
