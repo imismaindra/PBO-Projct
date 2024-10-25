@@ -89,7 +89,7 @@ class RoleModel
     {
         if (isset($_SESSION['roles'])) {
             $this->roles = unserialize($_SESSION['roles']);
-            $this->nextid = count($this->roles);
+            $this->nextid = count($this->roles) + 1;
         } else {
             $this->initializeDefaultRole();
         }
@@ -114,27 +114,33 @@ class RoleModel
     {
         return $this->roles;
     }
-    public function getRoleById($id){
-        foreach ($this->roles as $role ){
+    public function getRoleById($id)
+    {
+        foreach ($this->roles as $role) {
             if ($role->role_id == $id) {
                 return $role;
-            }else{
-                echo 'Role Id: '.$id.' tidak ditemukan!!';
             }
+            // else {
+            //     echo 'Role Id: ' . $id . ' tidak ditemukan!!';
+            // }
         }
+        return null;
     }
-    public function update($id,$nama,$desc,$status){
+    public function update($id, $nama, $desc, $status)
+    {
         foreach ($this->roles as $role) {
             if ($role->role_id == $id) {
                 $role->role_name = $nama;
                 $role->role_description = $desc;
                 $role->role_status = $status;
+                $this->saveToSession();
             }
         }
     }
-    public function deleteRole($id){
-        foreach ($this->roles as $key=>$role) {
-            if($role->role_id == $id){
+    public function deleteRole($id)
+    {
+        foreach ($this->roles as $key => $role) {
+            if ($role->role_id == $id) {
                 unset($this->roles[$key]);
                 $this->roles = array_values($this->roles);
                 $this->saveToSession();
@@ -142,7 +148,8 @@ class RoleModel
             }
         }
     }
-    public function getRoleByName($nama){
+    public function getRoleByName($nama)
+    {
         foreach ($this->roles as $role) {
             if ($role->role_name == $nama) {
                 return $role;
@@ -151,28 +158,33 @@ class RoleModel
     }
 }
 
-class Aggregation {
+class Aggregation
+{
     private $manusiaList = [];
     private $userList = [];
 
-    public function addManusia($nama, $nik) {
+    public function addManusia($nama, $nik)
+    {
         $manusia = new Manusia($nama, $nik);
         $this->manusiaList[] = $manusia;
     }
 
-    public function addUser($nama, $nik, $email, $password, $status) {
+    public function addUser($nama, $nik, $email, $password, $status)
+    {
         $user = new User($nama, $nik, $email, $password, $status);
         $this->userList[] = $user;
     }
 
-    public function cetakSemuaManusia() {
+    public function cetakSemuaManusia()
+    {
         foreach ($this->manusiaList as $manusia) {
             $manusia->cetak();
             echo "<br>";
         }
     }
 
-    public function cetakSemuaUser() {
+    public function cetakSemuaUser()
+    {
         foreach ($this->userList as $user) {
             $user->cetakUser();
             echo "<br>";
