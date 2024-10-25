@@ -1,22 +1,28 @@
-<nav class=" flex bg-blue-600 p-4 shadow-lg">
+<nav class="flex bg-white p-4 shadow-lg">
+    <!-- Sidebar Toggle Button -->
     <button @click="sidebarOpen = !sidebarOpen" class="p-1 mr-4">
         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"
-            class="h-6 w-6 text-white">
+            class="h-6 w-6 text-blue-600">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
         </svg>
     </button>
+
+    <!-- Container with Search Bar and Profile -->
     <div class="container mx-auto flex justify-between items-center">
-        <div class="text-white font-bold text-xl">
-            My Application
+        <!-- Search Bar -->
+        <div class="relative w-full max-w-lg mx-4">
+            <input type="text" placeholder="Search..."
+                class="w-full bg-gray-100 text-gray-800 rounded-full py-2 px-4 pr-10 shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-600 focus:bg-white transition">
+            <div class="absolute inset-y-0 right-3 flex items-center">
+                <!-- <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"
+                    class="h-5 w-5 text-gray-500">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M10 16l6-6m2 2a9 9 0 11-4.91-4.91L10 8h-1l-6-6" />
+                </svg> -->
+            </div>
         </div>
 
-        <!-- <div class="text-white">
-            <span class="mr-4">Username</span>
-            <span class="mr-4">Role</span>
-            <button class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded">
-                Logout
-            </button>
-        </div> -->
+        <!-- User Profile Section -->
         <div class="relative flex items-center cursor-pointer group">
             <div class="flex-shrink-0 w-10 h-10">
                 <img class="w-full h-full rounded-full"
@@ -24,13 +30,14 @@
                     alt="" />
             </div>
             <div class="ml-3">
-                <p class="text-white whitespace-no-wrap">
+                <p class="text-blue-600 whitespace-no-wrap">
                     Username
                 </p>
             </div>
 
             <!-- Dropdown Menu -->
-            <div class="absolute right-0 top-full mt-1 w-48 bg-white rounded-lg shadow-lg opacity-0 pointer-events-none group-hover:opacity-100 group-hover:pointer-events-auto transition-opacity duration-200">
+            <div
+                class="absolute right-0 top-full mt-1 w-48 bg-white rounded-lg shadow-lg opacity-0 pointer-events-none group-hover:opacity-100 group-hover:pointer-events-auto transition-opacity duration-200">
                 <div class="px-4 py-2 text-gray-700">
                     Role: User Role Here
                 </div>

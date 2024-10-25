@@ -1,6 +1,10 @@
 <div :class="{ '-ml-64': !sidebarOpen }" class="w-64 bg-[#0548B3] text-gray-100 h-screen transition-all duration-300 ease-in-out">
-    <div class="p-4 font-bold text-lg">Menu</div>
-    <ul class="mt-4 space-y-2">
+    <div class="text-white font-bold text-xl text-center mt-10
+    ">
+        Aplikasi opo iki
+    </div>
+    <div class="p-4 font-bold text-lg mt-5">Menu</div>
+    <ul class="space-y-2">
         <li class="group">
             <div class="font-semibold px-4 py-2 hover:bg-[#F3F4F6] hover:ml-5 hover:rounded-l-full hover:text-black cursor-pointer">
                 <a href="index.php?modul=role">Master Data Role</a>
