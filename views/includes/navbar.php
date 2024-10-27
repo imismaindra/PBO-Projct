@@ -30,7 +30,7 @@
                     alt="" />
             </div>
             <div class="ml-3">
-                <p class="text-blue-600 whitespace-no-wrap">
+                <p class=" font-bold text-blue-600 whitespace-no-wrap">
                     Username
                 </p>
             </div>
