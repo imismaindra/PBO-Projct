@@ -7,7 +7,7 @@ class User
     public $email;
     public $role;
 
-    public function ___construct($id, $uname, $pw, $email, $role)
+    public function __construct($id, $uname, $pw, $email, $role)
     {
         $this->id = $id;
         $this->username = $uname;
@@ -16,3 +16,4 @@ class User
         $this->role = $role;
     }
 };
+?>

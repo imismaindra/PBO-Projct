@@ -4,80 +4,112 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Barang Role</title>
+    <title>List Barang</title>
+    <!-- stylesheet -->
+    <link
+        rel="stylesheet"
+        href="https://unpkg.com/@material-tailwind/html@latest/styles/material-tailwind.css" />
+
+    <link
+        href="https://fonts.googleapis.com/css?family=Material+Icons|Material+Icons+Outlined|Material+Icons+Two+Tone|Material+Icons+Round|Material+Icons+Sharp"
+        rel="stylesheet">
     <script src="https://cdn.tailwindcss.com"></script>
+    <!-- script -->
+    <script src="https://unpkg.com/@material-tailwind/html@latest/scripts/script-name.js"></script>
+    <script src="https://unpkg.com/@material-tailwind/html@latest/scripts/ripple.js"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/alpinejs/2.8.0/alpine.js"></script>
 </head>
 
-<body class="bg-gray-100 font-sans leading-normal tracking-normal">
+<body class="bg-gray-200 font-sans leading-normal tracking-normal" x-data="{ sidebarOpen: true }">
 
-    <!-- Navbar -->
-    <?php include 'includes/navbar.php'; ?>
 
     <!-- Main container -->
-    <div class="flex">
+    <div class="flex h-screen">
         <!-- Sidebar -->
-        <?php include 'includes/sidebar.php'; ?>
 
-        <!-- Main Content -->
-        <div class="flex-1 p-8">
-            <!-- Your main content goes here -->
-            <div class="container mx-auto">
-                <!-- Button to Insert New Role -->
-                <div class="mb-4">
-                    <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
-                        <a href="MainEntryPoint.php?modul=role&fitur=add">Insert New Barang</a>
-                    </button>
-                </div>
+        <div :class="sidebarOpen ? 'translate-x-0' : '-translate-x-full'" class="flex h-screen">
 
-                <!-- Roles Table -->
-                <div class="bg-white shadow-md rounded my-6">
-                    <table class="min-w-full bg-white grid-cols-1">
-                        <thead class="bg-gray-800 text-white">
+            <?php include 'includes/sidebar.php'; ?>
+        </div>
 
-                            <tr>
-                                <th class="w-1/12 py-3 px-4 uppercase font-semibold text-sm">ID</th>
-                                <th class="w-1/4 py-3 px-4 uppercase font-semibold text-sm">Nama Barang</th>
-                                <th class="w-1/3 py-3 px-4 uppercase font-semibold text-sm">Jumlah Barang</th>
-                                <th class="w-1/6 py-3 px-4 uppercase font-semibold text-sm">Harga Barang</th>
-                                <th class="w-1/6 py-3 px-4 uppercase font-semibold text-sm">Actions</th>
-                            </tr>
+        <div class="flex-1 flex flex-col">
+            <!-- Navbar -->
+            <?php include 'includes/navbar.php'; ?>
+            <!-- Main Content -->
+            <div class="flex-1 p-8">
+                <!-- Your main content goes here -->
+                <div class="container mx-auto">
+                    <!-- Button to Insert New Role -->
+                    <div class="mb-4">
+                        <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+                            <a href="views/barang_input.php">Insert New Barang</a>
+                        </button>
 
-                        </thead>
-                        <tbody class="text-gray-700">
-                            <!-- Static Data Rows -->
-                            <?php foreach ($obj_barang as $brg) { ?>
+                    </div>
 
-                                <tr class="text-center">
-                                    <td class="py-3 px-4 text-blue-600"><?php echo htmlspecialchars($brg->Id_Barang) ?></td>
-                                    <td class="w-1/4 py-3 px-4"><?php echo htmlspecialchars($brg->Nama_Barang) ?></td>
-                                    <td class="w-1/3 py-3 px-4"><?php echo htmlspecialchars($brg->Jumlah_Barang) ?></td>
-                                    <td class="w-1/3 py-3 px-4">Rp
-                                        <?php echo htmlspecialchars(number_format($brg->Harga_Barang, 0, ".", thousands_separator: ".")) ?>
-                                    </td>
-                                    <!-- <td class="w-1/6 py-3 px-4">
-                                        <?php echo htmlspecialchars($role->role_status == 1 ? "Aktif" : "Non-Aktif") ?>
-                                    </td> -->
-                                    <td class="w-1/6 py-3 px-4 flex">
-                                        <button
-                                            class="bg-green-500 hover:bg-green-700 text-white font-bold py-1 px-2 rounded mr-2">
-                                            <a href="#">Update</a>
-                                        </button>
-                                        <button
-                                            class="bg-red-500 hover:bg-red-700 text-white font-bold py-1 px-2 rounded mr-2">
-                                            <a href="#">Delete</a>
-                                        </button>
-                                    </td>
+
+                    <!-- Roles Table -->
+                    <!-- Updated Roles Table -->
+                    <div class="overflow-auto lg:overflow-visible">
+                        <table class="min-w-full table text-gray-400 border-separate space-y-6 text-sm items-center ">
+                            <thead class="bg-white text-gray-500">
+                                <tr>
+                                    <th class="w-1/12 p-3">ID</th>
+                                    <th class="w-1/4 p-3 text-left">Nama Barang</th>
+                                    <th class="w-1/3 p-3 text-left">Stok</th>
+                                    <th class="w-1/6 p-3 text-left">Harga</th>
+                                    <th class="w-1/6 p-3 text-left">Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <?php foreach ($barangs as $barang) { ?>
+                                    <tr class="bg-white min-w-full">
+                                        <td class="p-3 text-blue-600"><?php echo htmlspecialchars($barang->Id_Barang) ?></td>
+                                        <td class="w-1/4 p-3"><?php echo htmlspecialchars($barang->Nama_Barang) ?></td>
+                                        <td class="w-1/4 p-3"><?php echo htmlspecialchars($barang->Stock_Barang) ?></td>
+                                        <td class="w-1/4 p-3">Rp. <?php echo htmlspecialchars($barang->Harga_Barang) ?></td>
+                                        <td class="w-1/6 p-3">
+                                            <a href="../index.php?modul=barang&fitur=edit&Id_Barang=<?php echo htmlspecialchars($barang->Id_Barang); ?>" class="text-gray-400 hover:text-gray-100 mx-2">
+                                                <i class="material-icons-outlined text-blue-600">edit</i>
+                                            </a>
+                                            <a href="../index.php?modul=barang&fitur=delete&Id_Barang=<?php echo htmlspecialchars($barang->Id_Barang); ?>" class="text-gray-400 hover:text-gray-100 ml-2">
+                                                <i class="material-icons-round text-red-600">delete_outline</i>
+                                            </a>
+                                        </td>
+                                    </tr>
                                 <?php } ?>
-
-                            </tr>
-
-
-                            <!-- More rows can be added statically here -->
-                        </tbody>
-                    </table>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
         </div>
+        <style>
+            .table {
+                border-spacing: 0 15px;
+            }
+
+            i {
+                font-size: 1rem !important;
+            }
+
+            .table tr {
+                border-radius: 20px;
+            }
+
+            tr td:nth-child(n+5),
+            tr th:nth-child(n+5) {
+                border-radius: 0 .625rem .625rem 0;
+            }
+
+            tr td:nth-child(1),
+            tr th:nth-child(1) {
+                border-radius: .625rem 0 0 .625rem;
+            }
+        </style>
+
+
     </div>
 
 </body>

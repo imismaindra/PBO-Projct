@@ -32,7 +32,7 @@
                     <path fill-rule="evenodd" d="M7.5 6a4.5 4.5 0 1 1 9 0 4.5 4.5 0 0 1-9 0ZM3.751 20.105a8.25 8.25 0 0 1 16.498 0 .75.75 0 0 1-.437.695A18.683 18.683 0 0 1 12 22.5c-2.786 0-5.433-.608-7.812-1.7a.75.75 0 0 1-.437-.695Z" clip-rule="evenodd" />
                 </svg>
 
-                <a href=#>Master Data User</a>
+                <a href="index.php?modul=user">Master Data User</a>
             </div>
             <!--            <ul class="ml-4 space-y-1 hidden group-hover:block">-->
             <!--                <li class="px-4 py-2 hover:bg-gray-700 cursor-pointer">List</li>-->
@@ -49,7 +49,7 @@
                 </svg>
 
                 <a
-                    href="./../../indexBarang.php"> Master Data Barang</a>
+                    href="index.php?modul=barang"> Master Data Barang</a>
             </div>
             <!--            <ul class="ml-4 space-y-1 hidden group-hover:block">-->
             <!--                <li class="px-4 py-2 hover:bg-gray-700 cursor-pointer">List</li>-->
