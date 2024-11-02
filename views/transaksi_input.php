@@ -10,12 +10,12 @@
 <body class="bg-gray-100 font-sans leading-normal tracking-normal">
 
     <!-- Navbar -->
-    <?php include 'includes/navbar.php'; ?>
+    <?php include 'views/includes/navbar.php'; ?>
 
     <!-- Main container -->
     <div class="flex">
         <!-- Sidebar -->
-        <?php include 'includes/sidebar.php'; ?>
+        <?php include 'views/includes/sidebar.php'; ?>
 
         <!-- Main Content -->
         <div class="flex-1 p-8">

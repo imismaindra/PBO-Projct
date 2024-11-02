@@ -71,10 +71,10 @@
             </div>
             <ul class="ml-4 space-y-1 hidden group-hover:block ">
                 <li class="px-4 py-2 hover:bg-[#E5E7EB] hover:ml-5 hover:rounded-l-full hover:text-black cursor-pointer">
-                    <a href=#>Insert Transaksi</a>
+                    <a href="index.php?modul=transaksi&fitur=add">Insert Transaksi</a>
                 </li>
                 <li class="px-4 py-2 hover:bg-[#E5E7EB] hover:ml-5 hover:rounded-l-full hover:text-black cursor-pointer">
-                    <a href=#>List Transaksi</a>
+                    <a href="index.php?modul=transaksi&fitur=list">List Transaksi</a>
                 </li>
 
             </ul>

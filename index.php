@@ -2,6 +2,7 @@
 require_once 'model/role_model.php';
 require_once 'model/user_model.php';
 require_once 'model/barang_model.php';
+require_once 'model/transaksi_model.php';
 
 session_start();
 
@@ -180,7 +181,14 @@ switch ($modul) {
                 break;
         }
         break;
+    case 'transaksi':
+        $fitur =  isset($_GET['fitur'])? $_GET['fitur'] : null;
+        $obj_barang = new Barang_model();
 
+        switch ($fitur) {
+            case 'list':
+                $transaksis = $obj_transaksi->getTransaksis();
+        }
     default:
         include 'views/kosong.php';
         break;
