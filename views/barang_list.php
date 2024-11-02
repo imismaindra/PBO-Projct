@@ -55,7 +55,7 @@
                         <table class="min-w-full table text-gray-400 border-separate space-y-6 text-sm items-center ">
                             <thead class="bg-white text-gray-500">
                                 <tr>
-                                    <th class=" p-3">ID</th>
+                                    <th class="">ID</th>
                                     <th class=" text-left">Nama Barang</th>
                                     <!-- <th class="w-1/7 p-3 text-left">Deskripsi</th> -->
                                     <th class="text-left">Satuan</th>
