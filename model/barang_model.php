@@ -1,9 +1,11 @@
 <?php
 require_once('domain_object/node_barang.php');
+
 class Barang_model
 {
     private $barangs = [];
     private $nextid = 1;
+
     public function __construct()
     {
         if (isset($_SESSION['barangs'])) {
@@ -13,49 +15,59 @@ class Barang_model
             $this->initializeDefaultBarang();
         }
     }
+
     public function initializeDefaultBarang()
     {
-        $this->addBarang("Buku", 10000, 100);
-        $this->addBarang("Pensil", 50000, 1);
-        $this->addBarang("Penggaris", 8000, 10);
+        // Menyediakan data awal untuk barang
+        $this->addBarang("Buku", "Buku Tulis", "pcs", "Alat Tulis", 10000, 100);
+        $this->addBarang("Pensil", "Pensil 2B", "pcs", "Alat Tulis", 5000, 50);
+        $this->addBarang("Penggaris", "Penggaris 30cm", "pcs", "Alat Tulis", 8000, 10);
     }
-    public function addBarang($brgNm, $brgHrg, $brgStok): void
+
+    public function addBarang($brgNm, $brgDesk, $brgSatuan, $brgCat, $brgHrg, $brgStok): void
     {
-        $barang = new Barang($this->nextid++, $brgNm, $brgStok, $brgHrg);
+        $barang = new Barang($this->nextid++, $brgNm, $brgDesk, $brgSatuan, $brgCat, $brgStok, $brgHrg);
         $this->barangs[] = $barang;
         $this->saveToSession();
     }
+
     private function saveToSession()
     {
         $_SESSION['barangs'] = serialize($this->barangs);
     }
+
     public function getBarangs()
     {
         return $this->barangs;
     }
+
     public function getBarangById($id)
     {
-        foreach ($this->barangs as $role) {
-            if ($role->role_id == $id) {
-                return $role;
+        foreach ($this->barangs as $barang) {
+            if ($barang->Id_Barang == $id) {
+                return $barang;
             }
-            // else {
-            //     echo 'Role Id: ' . $id . ' tidak ditemukan!!';
-            // }
         }
         return null;
     }
-    public function update($id, $brgNm, $brgHrg, $brgStok)
+
+    public function updateBarang($id, $brgNm, $brgDesk, $brgSatuan, $brgCat, $brgHrg, $brgStok)
     {
         foreach ($this->barangs as $barang) {
-            if ($barang->role_id == $id) {
+            if ($barang->Id_Barang == $id) {
                 $barang->Nama_Barang = $brgNm;
-                $barang->Stock_Barang = $brgHrg;
-                $barang->Harga_Barang = $brgStok;
+                $barang->Deskripsi_Barang = $brgDesk;
+                $barang->Satuan_Barang = $brgSatuan;
+                $barang->Kategori_Barang = $brgCat;
+                $barang->Harga_Barang = $brgHrg;
+                $barang->Stock_Barang = $brgStok;
                 $this->saveToSession();
+                return true;
             }
         }
+        return false;
     }
+
     public function deleteBarang($id)
     {
         foreach ($this->barangs as $key => $barang) {
@@ -68,7 +80,7 @@ class Barang_model
         }
         return false; 
     }
-    
+
     public function getBarangByName($nama)
     {
         foreach ($this->barangs as $barang) {
@@ -76,5 +88,7 @@ class Barang_model
                 return $barang;
             }
         }
+        return null;
     }
 }
+?>

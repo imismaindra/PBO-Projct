@@ -55,21 +55,27 @@
                         <table class="min-w-full table text-gray-400 border-separate space-y-6 text-sm items-center ">
                             <thead class="bg-white text-gray-500">
                                 <tr>
-                                    <th class="w-1/12 p-3">ID</th>
-                                    <th class="w-1/4 p-3 text-left">Nama Barang</th>
-                                    <th class="w-1/3 p-3 text-left">Stok</th>
-                                    <th class="w-1/6 p-3 text-left">Harga</th>
-                                    <th class="w-1/6 p-3 text-left">Actions</th>
+                                    <th class=" p-3">ID</th>
+                                    <th class=" text-left">Nama Barang</th>
+                                    <!-- <th class="w-1/7 p-3 text-left">Deskripsi</th> -->
+                                    <th class="text-left">Satuan</th>
+                                    <th class="text-left">Stok</th>
+                                    <th class="p-3 text-left">Kategori</th>
+                                    <th class="text-left">Harga</th>
+                                    <th class="text-left">Actions</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <?php foreach ($barangs as $barang) { ?>
                                     <tr class="bg-white min-w-full">
                                         <td class="p-3 text-blue-600"><?php echo htmlspecialchars($barang->Id_Barang) ?></td>
-                                        <td class="w-1/4 p-3"><?php echo htmlspecialchars($barang->Nama_Barang) ?></td>
-                                        <td class="w-1/4 p-3"><?php echo htmlspecialchars($barang->Stock_Barang) ?></td>
-                                        <td class="w-1/4 p-3">Rp. <?php echo htmlspecialchars($barang->Harga_Barang) ?></td>
-                                        <td class="w-1/6 p-3">
+                                        <td class=""><?php echo htmlspecialchars($barang->Nama_Barang) ?></td>
+                                        <!-- <td class="w-1/4 p-3"><?php echo htmlspecialchars($barang->Deskripsi_Barang); ?></td> -->
+                                        <td class=""><?php echo htmlspecialchars($barang->Satuan_Barang); ?></td>
+                                        <td class=""><?php echo htmlspecialchars($barang->Stock_Barang) ?></td>
+                                        <td class=""><?php echo htmlspecialchars($barang->Kategori_Barang); ?></td>
+                                        <td class="">Rp. <?php echo htmlspecialchars($barang->Harga_Barang) ?></td>
+                                        <td class="">
                                             <a href="../index.php?modul=barang&fitur=edit&Id_Barang=<?php echo htmlspecialchars($barang->Id_Barang); ?>" class="text-gray-400 hover:text-gray-100 mx-2">
                                                 <i class="material-icons-outlined text-blue-600">edit</i>
                                             </a>
@@ -98,8 +104,8 @@
                 border-radius: 20px;
             }
 
-            tr td:nth-child(n+5),
-            tr th:nth-child(n+5) {
+            tr td:nth-child(n+7),
+            tr th:nth-child(n+7) {
                 border-radius: 0 .625rem .625rem 0;
             }
 

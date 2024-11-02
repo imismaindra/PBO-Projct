@@ -29,26 +29,51 @@
             <!-- Main Content -->
             <div class="flex-1 p-8">
                 <!-- Formulir Input Barang -->
-                <div class="max-w-lg mx-auto bg-white p-6 rounded-lg shadow-lg">
+                <div class="max-w mx-auto bg-white p-6 rounded-lg shadow-lg">
                     <h2 class="text-2xl font-bold mb-6 text-gray-800">Update Barang</h2>
                     <form action="index.php?modul=barang&fitur=update" method="POST">
-
-                        <input type="hidden" name="Id_Barang" value="<?php echo htmlspecialchars($barang->Id_Barang); ?>">
-                        <div class="mb-4">
-                            <label for="role_name" class="block text-gray-700">Nama Barang:</label>
-                            <input type="text" name="role_name" id="role_name" value="<?php echo htmlspecialchars($role->role_name); ?>" class="border border-gray-300 p-2 w-full">
-                        </div>
-                        <div class="mb-4">
-                            <label for="role_description" class="block text-gray-700">Role Description:</label>
-                            <input type="text" name="role_description" id="role_description" value="<?php echo htmlspecialchars($role->role_description); ?>" class="border border-gray-300 p-2 w-full">
-                        </div>
-                        <div class="mb-4">
-                            <label for="role_status" class="block text-gray-700">Status:</label>
-                            <select name="role_status" id="role_status" class="border border-gray-300 p-2 w-full">
-                                <option value="1" <?php echo $role->role_status == 1 ? 'selected' : ''; ?>>Aktif</option>
-                                <option value="0" <?php echo $role->role_status == 0 ? 'selected' : ''; ?>>Non-Aktif</option>
-                            </select>
-                        </div>
+                        <div class="grid gap-6 mb-6 md:grid-cols-2">
+                            <input type="hidden" name="Id_Barang" value="<?php echo htmlspecialchars($barang->Id_Barang); ?>">
+                            <div class="mb-4">
+                                <label for="Nama_Barang" class="block text-gray-700 font-bold  ">Nama Barang:</label>
+                                <input type="text" name="Nama_Barang" id="Nama_Barang" value="<?php echo htmlspecialchars($barang->Nama_Barang); ?>" class=" rounded-lg border border-gray-300 p-2 w-full">
+                            </div>
+                            <div class="mb-4">
+                                <label for="Deskripsi_Barang" class="block text-gray-700 font-bold ">Deskripsi Barang:</label>
+                                <textarea type="text" name="Deskripsi_Barang" id="Deskripsi_Barang"  class="rounded-lg  border border-gray-300 p-2 w-full"><?php echo htmlspecialchars($barang->Deskripsi_Barang); ?></textarea>
+                            </div>
+                            <div class="mb-4">
+                                <label for="Satuan_Barang" class="block text-gray-700 font-bold ">Satuan Barang:</label>
+                                <select id="Satuan_Barang" name="Satuan_Barang"
+                                    class="shadow appearance-none border rounded-lg w-full py-2 px-3 text-gray-700  leading-tight focus:outline-none focus:shadow-outline"
+                                    required>
+                                    <option value="" disabled <?php echo empty($barang->Satuan_Barang) ? 'selected' : ''; ?>>Pilih Satuan</option>
+                                    <option value="pcs" <?php echo ($barang->Satuan_Barang === 'pcs') ? 'selected' : ''; ?>>Pcs</option>
+                                    <option value="unit" <?php echo ($barang->Satuan_Barang === 'unit') ? 'selected' : ''; ?>>Unit</option>
+                                </select>
+                            </div>
+                            <div class="mb-4">
+                                <label for="Kategori_Barang" class="block text-gray-700 font-bold ">Kategori Barang:</label>
+                                <select id="Kategori_Barang" name="Kategori_Barang"
+                                    class="shadow appearance-none border rounded-lg w-full py-2 px-3 text-gray-700  leading-tight focus:outline-none focus:shadow-outline"
+                                    required>
+                                    <option value="" disabled <?php echo empty($barang->Kategori_Barang) ? 'selected' : ''; ?>>Pilih Satuan</option>
+                                    <option value="Elektronik"<?php echo ($barang->Kategori_Barang === 'elektronik') ? 'selected' : ''; ?> >Elektronik</option>
+                                    <option value="Peralatan Kerja"<?php echo ($barang->Kategori_Barang === 'peralatan kerja') ? 'selected' : ''; ?>>Perlatan Kerja</option>
+                                    <option value="Alat Tulis" <?php echo ($barang->Kategori_Barang === 'alat tulis') ? 'selected' : ''; ?> >Alat Tulis</option>
+                                    <option value="Lainnya" <?php echo ($barang->Kategori_Barang === 'lainnya') ? 'selected' : ''; ?>>Lainnya</option>
+                                </select>
+                            </div>
+                            <div class="mb-4">
+                                <label for="Stock_Barang" class="block text-gray-700 font-bold ">Stok Barang:</label>
+                                <input type="number" name="Stock_Barang" id="Stock_Barang" value="<?php echo htmlspecialchars($barang->Stock_Barang); ?>" class="rounded-lg border border-gray-300 p-2 w-full">
+                            </div>
+                            <div class="mb-4">
+                                <label for="Harga_Barang" class="block text-gray-700 font-bold ">Harga Barang:</label>
+                                <input type="number" name="Harga_Barang" id="Harga_Barang" value="<?php echo htmlspecialchars($barang->Harga_Barang); ?>" class="rounded-lg border border-gray-300 p-2 w-full">
+                            </div>
+                            
+                        </div>  
                         <button type="submit" class="bg-blue-500 text-white p-2 rounded">Update Role</button>
                     </form>
                 </div>
