@@ -19,12 +19,12 @@
 <body class="bg-gray-100 font-sans leading-normal tracking-normal">
 
     <!-- Navbar -->
-    <?php include 'views/includes/navbar.php'; ?>
+    <?php include 'includes/navbar.php'; ?>
 
     <!-- Main container -->
     <div class="flex">
         <!-- Sidebar -->
-        <?php include 'views/includes/sidebar.php'; ?>
+        <?php include 'includes/sidebar.php'; ?>
 
         <!-- Main Content -->
         <div class="flex-1 p-8">
@@ -43,11 +43,12 @@
                             </tr>
                         </thead>
                         <tbody class="text-gray-700">
-                            <?php if (!empty($transaksis)) {
-                                foreach ($transaksis as $transaksi) { ?>
+                            <?php var_dump($listTransaksis)?>
+                            <?php if (!empty($listTransaksis)) {
+                                foreach ($listTransaksis as $transaksi) { ?>
                             <tr class="text-center">
-                                <td class="py-3 px-4 text-blue-600"><?php echo htmlspecialchars($transaksi->idTransaksi); ?></td>
-                                <td class="w-1/4 py-3 px-4"><?php echo htmlspecialchars($transaksi->customer->name); ?></td>
+                                <td class="py-3 px-4 text-blue-600"><?php echo htmlspecialchars($transaksi->Id_Transaksi); ?></td>
+                                <td class="w-1/4 py-3 px-4"><?php echo htmlspecialchars($transaksi->Id_User->name); ?></td>
                                 <td class="w-1/4 py-3 px-4"><?php echo htmlspecialchars($transaksi->kasir->name); ?></td>
                                 <td class="w-1/6 py-3 px-4"><?php echo htmlspecialchars($transaksi->total); ?></td>
                                 <td class="w-1/6 py-3 px-4">

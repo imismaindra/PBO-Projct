@@ -81,6 +81,12 @@ class UserModel
         }
         return null;
     }
+    public function getUsersByRoleId($role_id) {
+        return array_filter($this->users, callback: function($user) use ($role_id) {
+            return $user->role->role_id == $role_id;
+        });
+    }
+    
     public function deleteUser($id)
     {
         foreach ($this->users as $key => $user) {

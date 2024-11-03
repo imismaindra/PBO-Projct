@@ -62,7 +62,7 @@
                                 required>
                                 <option value="">Pilih Role</option>
                                 <?php foreach ($roles as $role): ?>
-                                    <?php if ($role->role_status != 1) continue; ?>
+                                    <?php if ($role->role_status == 2) continue; ?>
                                     <option value="<?php echo $role->role_id; ?>"><?php echo $role->role_name; ?></option>
                                 <?php endforeach; ?>
                             </select>

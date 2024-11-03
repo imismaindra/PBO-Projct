@@ -152,13 +152,13 @@ switch ($modul) {
                 $Kategori_Barang = $_POST['Kategori_Barang'] ?? '';
                 $Harga_Barang = $_POST['Harga_Barang'] ?? '';
                 $Stok_Barang = $_POST['Stock_Barang'] ?? '';
-                // echo "Id Barang : " . $Id_Barang . "<br>";
-                // echo "Barang : " . $Nama_Barang . "<br>";
-                // echo "Deskripsi : " . $Deskripsi_Barang . "<br>";
-                // echo "Satuan : " . $Satuan_Barang . "<br>";
-                // echo "Kategori : " . $Kategori_Barang . "<br>";
-                // echo "Harga : " . $Harga_Barang . "<br>";
-                // echo "Stok : " . $Stok_Barang . "<br>";
+                echo "Id Barang : " . $Id_Barang . "<br>";
+                echo "Barang : " . $Nama_Barang . "<br>";
+                echo "Deskripsi : " . $Deskripsi_Barang . "<br>";
+                echo "Satuan : " . $Satuan_Barang . "<br>";
+                echo "Kategori : " . $Kategori_Barang . "<br>";
+                echo "Harga : " . $Harga_Barang . "<br>";
+                echo "Stok : " . $Stok_Barang . "<br>";
 
                 if ($Id_Barang && $Nama_Barang && $Deskripsi_Barang && $Satuan_Barang && $Kategori_Barang && $Harga_Barang && $Stok_Barang) {
                     $obj_barang->updateBarang($Id_Barang, $Nama_Barang, $Deskripsi_Barang, $Satuan_Barang, $Kategori_Barang, $Harga_Barang, $Stok_Barang);
@@ -183,12 +183,61 @@ switch ($modul) {
         break;
     case 'transaksi':
         $fitur =  isset($_GET['fitur'])? $_GET['fitur'] : null;
-        $obj_barang = new Barang_model();
+        $obj_transaksi = new TransaksiModel();
 
         switch ($fitur) {
             case 'list':
-                $transaksis = $obj_transaksi->getTransaksis();
+                $listTransaksis = $obj_transaksi->getAllTransaksi();
+                include 'views/transaksi_list.php';
+                break;
+            case 'insert':
+                $userModel = new UserModel();
+                $users = $userModel->getUsersByRoleId(2); 
+
+                $barangModel = new Barang_model();
+                $barangs = $barangModel->getBarangs();
+                // var_dump($barangs);
+                include 'views/transaksi_input.php';
+                break;
+                case 'add':
+                    $barangModel = new Barang_model();
+
+                    $Id_User = $_POST['customer'] ?? '';
+                    $Tanggal_Transaksi = date('Y-m-d H:i:s'); 
+                    $Status_Transaksi = 'completed'; 
+                    
+                    $detailBarang = [];
+                    foreach ($_POST['barang'] as $index => $barang_id) {
+                        $barang = $barangModel->getBarangById($barang_id);
+                        $Jumlah_Barang = $_POST['jumlah'][$index] ?? 1; // Default jumlah 1 jika tidak ada
+                        $Harga_Barang = $barang->Harga_Barang ?? 0;  // Default harga 0 jika tidak ada
+                       echo 'harga barang = '.$Harga_Barang.'<br>';
+
+                        $detailBarang[] = [
+                            'Id_Barang' => $barang_id,
+                            'Jumlah_Barang' => $Jumlah_Barang,
+                            'Harga_Barang' => $Harga_Barang
+                        ];
+                        
+                        print_r($detailBarang);
+                    }
+                
+                    // Pastikan data transaksi valid sebelum memanggil addTransaksi
+                    if ($Id_User && $Tanggal_Transaksi && $Status_Transaksi && !empty($detailBarang)) {
+                        $obj_transaksi->addTransaksi($Id_User, $Tanggal_Transaksi, $Status_Transaksi, $detailBarang);
+                        // header('location: index.php?modul=transaksi&fitur=list');
+                        exit;
+                    } else {
+                        echo "Data tidak lengkap untuk menambahkan transaksi.";
+                    }
+                    break;
+                
+                
+            default:
+                include 'views/notfound.php';
+                break;
         }
+        break;
     default:
         include 'views/kosong.php';
         break;

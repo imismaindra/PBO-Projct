@@ -8,7 +8,7 @@ class Barang
     public $Kategori_Barang;
     public $Harga_Barang;
     public $Stock_Barang;
-    public function __construct($Id, $Nama_Barang, $Deskripsi_Barang,$Satuan_Barang,$Kategori_Barang ,$Jumlah_Barang, $Harga_Barang)
+    public function __construct($Id, $Nama_Barang, $Deskripsi_Barang,$Satuan_Barang,$Kategori_Barang ,$Stock_Barang, $Harga_Barang)
     {
         $this->Id_Barang = $Id;
         $this->Nama_Barang = $Nama_Barang;
@@ -16,7 +16,7 @@ class Barang
         $this->Satuan_Barang = $Satuan_Barang;
         $this->Kategori_Barang = $Kategori_Barang;
         $this->Harga_Barang = $Harga_Barang;
-        $this->Stock_Barang = $Jumlah_Barang;
+        $this->Stock_Barang = $Stock_Barang;
     }
 }
 ?>

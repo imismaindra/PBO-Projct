@@ -83,12 +83,10 @@ class Barang_model
 
     public function getBarangByName($nama)
     {
-        foreach ($this->barangs as $barang) {
-            if ($barang->Nama_Barang == $nama) {
-                return $barang;
-            }
-        }
-        return null;
+        return array_filter($this->barangs, function($barang) use ($nama) {
+            return stripos($barang->Nama_Barang, $nama) !== false;
+        });
     }
+
 }
 ?>
