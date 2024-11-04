@@ -193,46 +193,46 @@ switch ($modul) {
             case 'insert':
                 $userModel = new UserModel();
                 $users = $userModel->getUsersByRoleId(2); 
-
                 $barangModel = new Barang_model();
                 $barangs = $barangModel->getBarangs();
-                // var_dump($barangs);
                 include 'views/transaksi_input.php';
                 break;
-                case 'add':
-                    $barangModel = new Barang_model();
+            case 'add':
+                $barangModel = new Barang_model();
 
-                    $Id_User = $_POST['customer'] ?? '';
-                    $Tanggal_Transaksi = date('Y-m-d H:i:s'); 
-                    $Status_Transaksi = 'completed'; 
+                $Id_User = $_POST['customer'];
+                $Tanggal_Transaksi = date('Y-m-d H:i:s'); 
+                $Status_Transaksi = 'completed'; 
+                $detailBarang = [];
+                foreach ($_POST['barang'] as $index => $barang_id) {
+                    if (empty($barang_id)) continue; 
+                    if (array_search($barang_id, array_column($detailBarang, 'Id_Barang')) !== false) {
+                        continue; // Jika barang sudah ada, lewati ke iterasi berikutnya
+                    }
+                    $barang = $barangModel->getBarangById($barang_id);
+                    $Jumlah_Barang = $_POST['jumlah'][$index] ?? 1; 
+                    $Harga_Barang = $barang->Harga_Barang ?? 0;
                     
-                    $detailBarang = [];
-                    foreach ($_POST['barang'] as $index => $barang_id) {
-                        $barang = $barangModel->getBarangById($barang_id);
-                        $Jumlah_Barang = $_POST['jumlah'][$index] ?? 1; // Default jumlah 1 jika tidak ada
-                        $Harga_Barang = $barang->Harga_Barang ?? 0;  // Default harga 0 jika tidak ada
-                       echo 'harga barang = '.$Harga_Barang.'<br>';
-
+                    if ($barang_id && $Jumlah_Barang && $Harga_Barang) {
                         $detailBarang[] = [
                             'Id_Barang' => $barang_id,
                             'Jumlah_Barang' => $Jumlah_Barang,
                             'Harga_Barang' => $Harga_Barang
                         ];
-                        
-                        print_r($detailBarang);
                     }
-                
-                    // Pastikan data transaksi valid sebelum memanggil addTransaksi
-                    if ($Id_User && $Tanggal_Transaksi && $Status_Transaksi && !empty($detailBarang)) {
-                        $obj_transaksi->addTransaksi($Id_User, $Tanggal_Transaksi, $Status_Transaksi, $detailBarang);
-                        // header('location: index.php?modul=transaksi&fitur=list');
-                        exit;
-                    } else {
-                        echo "Data tidak lengkap untuk menambahkan transaksi.";
-                    }
-                    break;
-                
-                
+                }                
+                // echo "<pre>";
+                //     print_r($detailBarang);
+                // echo "</pre>";
+
+                if ($Id_User && $Tanggal_Transaksi && $Status_Transaksi && !empty($detailBarang)) {
+                    $obj_transaksi->addTransaksi($Id_User, $Tanggal_Transaksi, $Status_Transaksi, $detailBarang);
+                    header('location: index.php?modul=transaksi&fitur=list');
+                    exit;
+                } else {
+                    echo "Data tidak lengkap untuk menambahkan transaksi.";
+                }
+                break;
             default:
                 include 'views/notfound.php';
                 break;

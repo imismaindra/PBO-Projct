@@ -11,7 +11,9 @@ class TransaksiDetail
         $this->Id_Barang = $Id_Barang;
         $this->Jumlah_Barang = $Jumlah_Barang;
         $this->Harga_Barang = $Harga_Barang;
-        $this->Total_Harga = $Jumlah_Barang * $Harga_Barang;
+        $this->Total_Harga = is_numeric($Jumlah_Barang) && is_numeric($Harga_Barang) 
+        ? $Jumlah_Barang * $Harga_Barang 
+        : 0;
     }
 }
 ?>
