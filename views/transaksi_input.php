@@ -61,6 +61,7 @@
                             <select id="barangSelect" name="barang[]" @change="selectBarang($event)" class="mt-1 p-2 border border-gray-300 rounded-xl w-full" required>
                                 <option value="" disabled selected>Pilih Barang</option>
                                 <?php foreach ($barangs as $barang): ?>
+                                    <?php if ($barang->Stock_Barang <= 1) continue; ?>
                                     <option value="<?php echo $barang->Id_Barang; ?>" data-harga="<?php echo $barang->Harga_Barang; ?>" data-nama="<?php echo $barang->Nama_Barang; ?>">
                                         <?php echo $barang->Nama_Barang . " - Rp." . $barang->Harga_Barang; ?>
                                     </option>
