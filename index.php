@@ -182,9 +182,10 @@ switch ($modul) {
         }
         break;
     case 'transaksi':
-        $fitur =  isset($_GET['fitur'])? $_GET['fitur'] : null;
+        $fitur = isset($_GET['fitur'])? $_GET['fitur'] : null;
         $obj_transaksi = new TransaksiModel();
-
+        $obj_user = new UserModel();
+        $obj_barang = new Barang_model();
         switch ($fitur) {
             case 'list':
                 $listTransaksis = $obj_transaksi->getAllTransaksi();
@@ -195,19 +196,21 @@ switch ($modul) {
                 $users = $userModel->getUsersByRoleId(2); 
                 $barangModel = new Barang_model();
                 $barangs = $barangModel->getBarangs();
+
                 include 'views/transaksi_input.php';
                 break;
             case 'add':
                 $barangModel = new Barang_model();
-
+                // $Id_User = $obj_user->getUserById($_POST['customer']);
                 $Id_User = $_POST['customer'];
                 $Tanggal_Transaksi = date('Y-m-d H:i:s'); 
                 $Status_Transaksi = 'completed'; 
                 $detailBarang = [];
+
                 foreach ($_POST['barang'] as $index => $barang_id) {
                     if (empty($barang_id)) continue; 
                     if (array_search($barang_id, array_column($detailBarang, 'Id_Barang')) !== false) {
-                        continue; // Jika barang sudah ada, lewati ke iterasi berikutnya
+                        continue; 
                     }
                     $barang = $barangModel->getBarangById($barang_id);
                     $Jumlah_Barang = $_POST['jumlah'][$index] ?? 1; 
@@ -222,6 +225,7 @@ switch ($modul) {
                     }
                 }                
                 // echo "<pre>";
+                //     print_r($Id_User);
                 //     print_r($detailBarang);
                 // echo "</pre>";
 

@@ -120,9 +120,6 @@ class RoleModel
             if ($role->role_id == $id) {
                 return $role;
             }
-            // else {
-            //     echo 'Role Id: ' . $id . ' tidak ditemukan!!';
-            // }
         }
         return null;
     }
