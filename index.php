@@ -10,17 +10,14 @@ if (isset($_GET['modul']) && $_GET['modul'] === 'login') {
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $username = $_POST['username'];
         $password = $_POST['password'];
-
-        // Verifikasi username dan password di sini
-        // Misalnya, bisa cek dari database dengan user model
         $userModel = new UserModel();
         $user = $userModel->getUserByUsernameAndPassword($username, $password);
 
         if ($user) {
-            // Jika login berhasil
             $_SESSION['logged_in'] = true;
             $_SESSION['username'] = $username;
             $_SESSION['user_id'] = $user->id;
+            $_SESSION['role_id'] = $user->role->role_name;
             header('Location: index.php'); // Redirect ke dashboard atau modul lain
             exit();
         } else {

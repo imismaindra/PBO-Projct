@@ -1,3 +1,7 @@
+<?php 
+        $username = isset($_SESSION['username']) ? $_SESSION['username'] : 'Guest';
+        $role_name = isset($_SESSION['role_id']) ? $_SESSION['role_id'] : 'No role';
+    ?>
 <nav class="flex bg-white p-4 shadow-lg">
     <!-- Sidebar Toggle Button -->
     <button @click="sidebarOpen = !sidebarOpen" class="p-1 mr-4">
@@ -31,7 +35,7 @@
             </div>
             <div class="ml-3">
                 <p class=" font-bold text-blue-600 whitespace-no-wrap">
-                    Username
+                <?php echo htmlspecialchars($username); ?>
                 </p>
             </div>
 
@@ -39,7 +43,7 @@
             <div
                 class="absolute right-0 top-full mt-1 w-48 bg-white rounded-lg shadow-lg opacity-0 pointer-events-none group-hover:opacity-100 group-hover:pointer-events-auto transition-opacity duration-200">
                 <div class="px-4 py-2 text-gray-700">
-                    Role: User Role Here
+                    Role: <?php echo htmlspecialchars($role_name); ?>
                 </div>
                 <div class="border-t border-gray-300"></div>
                 <button class="w-full text-left px-4 py-2 hover:bg-gray-200">
