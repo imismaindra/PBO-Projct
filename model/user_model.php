@@ -81,6 +81,14 @@ class UserModel
         }
         return null;
     }
+    public function getUserByUsernameAndPassword($username,$password){
+        foreach ($this->users as $user) {
+            if ($user->username == $username && password_verify($password, $user->password)) {
+                return $user;
+            }
+        }
+        return null;
+    }
     public function getUsersByRoleId($role_id) {
         return array_filter($this->users, callback: function($user) use ($role_id) {
             return $user->role->role_id == $role_id;
@@ -101,6 +109,9 @@ class UserModel
     }
     public function initializeDefaultUser()
     {
-        $this->addUser("nnael", "123456789", "nnael@gmail.com",1);
+        $this->addUser("nnael", password_hash("123456789", PASSWORD_DEFAULT), "nnael@gmail.com", 1);
+        $this->addUser("indra", password_hash("indra", PASSWORD_DEFAULT), "kodir@gmail.com", 2);
+        $this->addUser("hasan", password_hash("hasan", PASSWORD_DEFAULT), "hasan@gmail.com", 3);
+
     }
 }

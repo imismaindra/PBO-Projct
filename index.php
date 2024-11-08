@@ -5,10 +5,40 @@ require_once 'model/barang_model.php';
 require_once 'model/transaksi_model.php';
 
 session_start();
+if (isset($_GET['modul']) && $_GET['modul'] === 'login') {
+    // Verifikasi login
+    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+        $username = $_POST['username'];
+        $password = $_POST['password'];
+
+        // Verifikasi username dan password di sini
+        // Misalnya, bisa cek dari database dengan user model
+        $userModel = new UserModel();
+        $user = $userModel->getUserByUsernameAndPassword($username, $password);
+
+        if ($user) {
+            // Jika login berhasil
+            $_SESSION['logged_in'] = true;
+            $_SESSION['username'] = $username;
+            $_SESSION['user_id'] = $user->id;
+            header('Location: index.php'); // Redirect ke dashboard atau modul lain
+            exit();
+        } else {
+            echo "Username atau password salah!";
+        }
+    }
+} else if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] !== true) {
+    header('Location: views/login.php'); // Redirect jika belum login
+    exit();
+}
 
 $modul = isset($_GET['modul']) ? $_GET['modul'] : 'dashboard';
 
 switch ($modul) {
+    case 'login':
+        require_once 'views/login.php';
+
+        break;
     case 'dashboard':
         include 'views/kosong.php';
         break;
