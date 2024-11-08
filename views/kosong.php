@@ -19,6 +19,8 @@
     $dashboard = new DashboardModel();  
     $role =  new RoleModel();
     $role->getRoles();
+    $dashboardModel = new DashboardModel();
+$totalHargaTransaksi = $dashboardModel->getTotalHargaTransaksi();
     // $barang = new Barang_model();
     $username = isset($_SESSION['username']) ? $_SESSION['username'] : 'Guest';
     $role_name = isset($_SESSION['role_id']) ? $_SESSION['role_id'] : 'No role';
@@ -34,7 +36,7 @@
                 <?php include 'includes/navbar.php'; ?>
                 <!-- Main Content -->
                 <div class="flex-1 p-8">
-                    <p class="text-3xl font-bold">Dashboard <?php echo $username.' ('.$role_name.')'?> </p>
+                    <p class="text-3xl font-bold">Dashboard</p>
                     <div class="rounded-lg container items-center px-4  py-8 m-auto">
                         <div class="flex flex-wrap pb-3 bg-white divide-y rounded-sm shadow-lg xl:divide-x xl:divide-y-0">
                             <div class="w-full p-2 xl:w-1/4 sm:w-1/2">
@@ -139,7 +141,7 @@
                                     </span>
                                 </div>
                                 <div class="flex-1 pl-1">
-                                    <div class="text-xl font-medium text-gray-600"><?php echo "Rp.".$dashboard->getCountJumlahTransaksi();?></div>
+                                    <div class="text-xl font-medium text-gray-600"><?php echo "Rp.".number_format($dashboard->getTotalHargaTransaksi(), 0, ',', '.')?></div>
                                     <div class="text-sm text-gray-400 sm:text-base">
                                     Jumlah Transaksi
                                     </div>
