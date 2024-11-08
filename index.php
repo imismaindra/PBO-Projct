@@ -243,6 +243,7 @@ switch ($modul) {
         }
         break;
     default:
+        $dashboard = new DashboardModel();
         include 'views/kosong.php';
         break;
 }

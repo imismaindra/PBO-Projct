@@ -13,7 +13,11 @@
 </head>
 
 <body class="bg-gray-100 font-sans leading-normal tracking-normal" x-data="{ sidebarOpen: true }">
-
+<?php 
+require_once 'model/dahboard_model.php';
+$dashboard = new DashboardModel();  
+// $barang = new Barang_model();
+?>
 
     <!-- Main container -->
     <div class="flex h-screen">
@@ -41,7 +45,7 @@
                                 </span>
                             </div>
                             <div class="flex-1 pl-1">
-                                <div class="text-xl font-medium text-gray-600">6,427</div>
+                                <div class="text-xl font-medium text-gray-600"><?php echo $dashboard->getCountUsers(); ?></div>
                                 <div class="text-sm text-gray-400 sm:text-base">
                                 Users
                                 </div>
@@ -52,9 +56,9 @@
                                 <div class="h-2 bg-blue-500 rounded-md hover:bg-blue-600" style="width:  100%"></div>
                             </div>
                             <div class="flex flex-row items-center justify-between w-full py-px text-base text-gray-400">
-                                <p class="flex">change</p>
+                                <p class="flex"></p>
                                 <div class="flex items-center justify-between space-x-2">
-                                <p>83%</p>
+                                <!-- <p>83%</p> -->
                                 </div>
                             </div>
                             </div>
@@ -71,20 +75,20 @@
                                 </span>
                             </div>
                             <div class="flex-1 pl-1">
-                                <div class="text-xl font-medium text-gray-600">78%</div>
+                                <div class="text-xl font-medium text-gray-600"><?php echo $dashboard->getCountBarangs();?></div>
                                 <div class="text-sm text-gray-400 sm:text-base">
-                                Add to Cart
+                                Barang
                                 </div>
                             </div>
                             </div>
                             <div class="px-4 pt-px">
                             <div class="w-full h-2 bg-gray-200 rounded-md hover:bg-gray-300">
-                                <div class="h-2 bg-red-500 rounded-md hover:bg-red-600" style="width: 78%"></div>
+                                <div class="h-2 bg-red-500 rounded-md hover:bg-red-600" style="width: 100%"></div>
                             </div>
                             <div class="flex flex-row items-center justify-between w-full py-px text-base text-gray-400">
-                                <p class="flex">change</p>
+                                <!-- <p class="flex">change</p> -->
                                 <div class="flex items-center justify-between space-x-2">
-                                <p>78%</p>
+                                <!-- <p><></p> -->
                                 </div>
                             </div>
                             </div>
@@ -112,7 +116,7 @@
                                 <div class="h-2 bg-yellow-500 rounded-md hover:bg-yellow-600" style="width: 86%"></div>
                             </div>
                             <div class="flex flex-row items-center justify-between w-full py-px text-base text-gray-400">
-                                <p class="flex">change</p>
+                                <!-- <p class="flex">change</p> -->
                                 <div class="flex items-center justify-between space-x-2">
                                 <p>86%</p>
                                 </div>
@@ -142,7 +146,7 @@
                                 <div class="h-2 bg-green-500 rounded-md hover:bg-green-600" style="width: 79%"></div>
                             </div>
                             <div class="flex flex-row items-center justify-between w-full py-px text-base text-gray-400">
-                                <p class="flex">change</p>
+                                <!-- <p class="flex">change</p> -->
                                 <div class="flex items-center justify-between space-x-2">
                                 <p>79%</p>
                                 </div>
