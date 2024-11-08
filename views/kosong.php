@@ -105,20 +105,19 @@ $dashboard = new DashboardModel();
                                 </span>
                             </div>
                             <div class="flex-1 pl-1">
-                                <div class="text-xl font-medium text-gray-600">563</div>
+                                <div class="text-xl font-medium text-gray-600"><?php echo $dashboard->getCountTransaksi();?></div>
                                 <div class="text-sm text-gray-400 sm:text-base">
-                                Newsletter Sign Ups
+                                Transaksi
                                 </div>
                             </div>
                             </div>
                             <div class="px-4 pt-px">
                             <div class="w-full h-2 bg-gray-200 rounded-md hover:bg-gray-300">
-                                <div class="h-2 bg-yellow-500 rounded-md hover:bg-yellow-600" style="width: 86%"></div>
+                                <div class="h-2 bg-yellow-500 rounded-md hover:bg-yellow-600" style="width: 100%"></div>
                             </div>
                             <div class="flex flex-row items-center justify-between w-full py-px text-base text-gray-400">
                                 <!-- <p class="flex">change</p> -->
                                 <div class="flex items-center justify-between space-x-2">
-                                <p>86%</p>
                                 </div>
                             </div>
                             </div>
@@ -135,9 +134,9 @@ $dashboard = new DashboardModel();
                                 </span>
                             </div>
                             <div class="flex-1 pl-1">
-                                <div class="text-xl font-medium text-gray-600">&#36;56,474</div>
+                                <div class="text-xl font-medium text-gray-600"><?php echo "Rp.".$dashboard->getCountJumlahTransaksi();?></div>
                                 <div class="text-sm text-gray-400 sm:text-base">
-                                Active Sessions
+                                Jumlah Transaksi
                                 </div>
                             </div>
                             </div>
@@ -148,7 +147,7 @@ $dashboard = new DashboardModel();
                             <div class="flex flex-row items-center justify-between w-full py-px text-base text-gray-400">
                                 <!-- <p class="flex">change</p> -->
                                 <div class="flex items-center justify-between space-x-2">
-                                <p>79%</p>
+                                <!-- <p>79%</p> -->
                                 </div>
                             </div>
                             </div>
