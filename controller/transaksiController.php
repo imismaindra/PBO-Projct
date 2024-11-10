@@ -56,6 +56,9 @@ class TransaksiController
 
         if ($Id_User && $Tanggal_Transaksi && $Status_Transaksi && !empty($detailBarang)) {
             $this->transaksiModel->addTransaksi($Id_User, $Kasir, $Tanggal_Transaksi, $Status_Transaksi, $detailBarang);
+            foreach ($detailBarang as $item) {
+                $this->barangModel->updateStock($item['Id_Barang'], $item['Jumlah_Barang']);
+            }
             header('location: index.php?modul=transaksi&fitur=list');
             exit();
         } else {

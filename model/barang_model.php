@@ -101,5 +101,21 @@ class BarangModel
             return stripos($barang->Nama_Barang, $nama) !== false;
         });
     }
+    public function updateStock($barang_id, $jumlah_terjual)
+    {
+        foreach ($this->barangs as $barang) {
+            if ($barang->Id_Barang == $barang_id) {
+                if ($barang->Stock_Barang >= $jumlah_terjual) {
+                    $barang->Stock_Barang -= $jumlah_terjual;
+                    $this->saveToSession();
+                } else {
+                    throw new Exception("Stok barang tidak mencukupi untuk barang dengan ID: $barang_id");
+                }
+                return true;
+            }
+        }
+        throw new Exception("Barang dengan ID: $barang_id tidak ditemukan");
+    }
+
 }
 ?>
