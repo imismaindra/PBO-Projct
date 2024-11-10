@@ -1,19 +1,24 @@
 <?php
 require_once('domain_object/node_barang.php');
 
-class Barang_model
+class BarangModel
 {
     private $barangs = [];
-    private $nextid = 1;
+    private $nextId = 1;
 
     public function __construct()
     {
         if (isset($_SESSION['barangs'])) {
             $this->barangs = unserialize($_SESSION['barangs']);
-            $this->nextid = count($this->barangs) + 1;
+            $this->nextId = $this->getNextId();
         } else {
             $this->initializeDefaultBarang();
         }
+    }
+
+    private function getNextId()
+    {
+        return !empty($this->barangs) ? max(array_column($this->barangs, 'Id_Barang')) + 1 : 1;
     }
 
     public function initializeDefaultBarang()
@@ -24,9 +29,14 @@ class Barang_model
         $this->addBarang("Penggaris", "Penggaris 30cm", "pcs", "Alat Tulis", 8000, 10);
     }
 
-    public function addBarang($brgNm, $brgDesk, $brgSatuan, $brgCat, $brgHrg, $brgStok): void
+    public function addBarang($nama, $deskripsi, $satuan, $kategori, $harga, $stok): void
     {
-        $barang = new Barang($this->nextid++, $brgNm, $brgDesk, $brgSatuan, $brgCat, $brgStok, $brgHrg);
+        // Validasi harga dan stok untuk mencegah input yang tidak valid
+        if ($harga < 0 || $stok < 0) {
+            throw new InvalidArgumentException("Harga dan stok harus bernilai positif.");
+        }
+
+        $barang = new Barang($this->nextId++, $nama, $deskripsi, $satuan, $kategori, $stok, $harga);
         $this->barangs[] = $barang;
         $this->saveToSession();
     }
@@ -51,16 +61,20 @@ class Barang_model
         return null;
     }
 
-    public function updateBarang($id, $brgNm, $brgDesk, $brgSatuan, $brgCat, $brgHrg, $brgStok)
+    public function updateBarang($id, $nama, $deskripsi, $satuan, $kategori, $harga, $stok)
     {
+        if ($harga < 0 || $stok < 0) {
+            throw new InvalidArgumentException("Harga dan stok harus bernilai positif.");
+        }
+
         foreach ($this->barangs as $barang) {
             if ($barang->Id_Barang == $id) {
-                $barang->Nama_Barang = $brgNm;
-                $barang->Deskripsi_Barang = $brgDesk;
-                $barang->Satuan_Barang = $brgSatuan;
-                $barang->Kategori_Barang = $brgCat;
-                $barang->Harga_Barang = $brgHrg;
-                $barang->Stock_Barang = $brgStok;
+                $barang->Nama_Barang = $nama;
+                $barang->Deskripsi_Barang = $deskripsi;
+                $barang->Satuan_Barang = $satuan;
+                $barang->Kategori_Barang = $kategori;
+                $barang->Harga_Barang = $harga;
+                $barang->Stock_Barang = $stok;
                 $this->saveToSession();
                 return true;
             }
@@ -71,22 +85,21 @@ class Barang_model
     public function deleteBarang($id)
     {
         foreach ($this->barangs as $key => $barang) {
-            if ($barang->Id_Barang == $id) {  
-                unset($this->barangs[$key]); 
-                $this->barangs = array_values($this->barangs); 
+            if ($barang->Id_Barang == $id) {
+                unset($this->barangs[$key]);
+                $this->barangs = array_values($this->barangs); // Reset indeks array
                 $this->saveToSession();
                 return true;
             }
         }
-        return false; 
+        return false;
     }
 
     public function getBarangByName($nama)
     {
-        return array_filter($this->barangs, function($barang) use ($nama) {
+        return array_filter($this->barangs, function ($barang) use ($nama) {
             return stripos($barang->Nama_Barang, $nama) !== false;
         });
     }
-
 }
 ?>

@@ -1,7 +1,6 @@
 <?php
- require_once('domain_object/node_user.php');
- require_once('model/role_model.php');
- require_once('domain_object/node_user.php');
+require_once('domain_object/node_user.php');
+require_once('model/role_model.php');
 
 class UserModel
 {
@@ -9,29 +8,41 @@ class UserModel
     private $nextId = 1;
     private $roleModel; 
 
-
     public function __construct()
     {
-        $this->roleModel =  new RoleModel();
+        $this->roleModel = new RoleModel();
         if (isset($_SESSION['users'])) {
             $this->users = unserialize($_SESSION['users']);
-            $this->nextId = count($this->users) + 1;
-        }else{
+            $this->nextId = $this->getNextId();
+        } else {
             $this->initializeDefaultUser();
         }
     }
 
+    private function getNextId()
+    {
+        return count($this->users) > 0 ? max(array_column($this->users, 'id')) + 1 : 1;
+    }
+
     public function addUser($username, $password, $email, $role_id)
     {
+        if ($this->getUserByName($username)) {
+            echo "Username $username sudah digunakan!";
+            return false;
+        }
+
         $role = $this->roleModel->getRoleById($role_id);
         if ($role) {
-            $user = new User($this->nextId++, $username, $password, $email, $role);
+            $user = new User($this->nextId++, $username, password_hash($password, PASSWORD_DEFAULT), $email, $role);
             $this->users[] = $user;
             $this->saveToSession();
+            return true;
         } else {
             echo "Role ID $role_id tidak ditemukan!";
+            return false;
         }
     }
+
     public function updateUser($id, $nama, $pw, $email, $role_id)
     {
         foreach ($this->users as $user) {
@@ -39,18 +50,19 @@ class UserModel
                 $role = $this->roleModel->getRoleById($role_id);
                 if ($role) {
                     $user->username = $nama;
-                    $user->password = password_hash($pw, PASSWORD_DEFAULT); // Hash password
+                    $user->password = password_hash($pw, PASSWORD_DEFAULT);
                     $user->email = $email;
                     $user->role = $role;
                     $this->saveToSession();
-                    return true; // Indicate success
+                    return true;
                 } else {
                     echo "Role ID $role_id tidak ditemukan!";
-                    return false; // Role not found
+                    return false;
                 }
             }
         }
-        return false; // User not found
+        echo "User ID $id tidak ditemukan!";
+        return false;
     }
 
     private function saveToSession()
@@ -72,6 +84,7 @@ class UserModel
         }
         return null;
     }
+
     public function getUserByName($uname)
     {
         foreach ($this->users as $user) {
@@ -81,7 +94,9 @@ class UserModel
         }
         return null;
     }
-    public function getUserByUsernameAndPassword($username,$password){
+
+    public function getUserByUsernameAndPassword($username, $password)
+    {
         foreach ($this->users as $user) {
             if ($user->username == $username && password_verify($password, $user->password)) {
                 return $user;
@@ -89,29 +104,32 @@ class UserModel
         }
         return null;
     }
-    public function getUsersByRoleId($role_id) {
-        return array_filter($this->users, callback: function($user) use ($role_id) {
+
+    public function getUsersByRoleId($role_id)
+    {
+        return array_filter($this->users, function($user) use ($role_id) {
             return $user->role->role_id == $role_id;
         });
     }
-    
+
     public function deleteUser($id)
     {
         foreach ($this->users as $key => $user) {
             if ($user->id == $id) {
                 unset($this->users[$key]);
-                $this->users = array_values($this->users);
+                $this->users = array_values($this->users); // Reindex array
                 $this->saveToSession();
                 return true;
             }
         }
+        echo "User ID $id tidak ditemukan!";
         return false;
     }
-    public function initializeDefaultUser()
-    {
-        $this->addUser("nnael", password_hash("123456789", PASSWORD_DEFAULT), "nnael@gmail.com", 1);
-        $this->addUser("indra", password_hash("indra", PASSWORD_DEFAULT), "kodir@gmail.com", 2);
-        $this->addUser("hasan", password_hash("hasan", PASSWORD_DEFAULT), "hasan@gmail.com", 3);
 
+    private function initializeDefaultUser()
+    {
+        $this->addUser("nnael", "123456789", "nnael@gmail.com", 1);
+        $this->addUser("indra", "indra", "indra@gmail.com", 2);
+        $this->addUser("hasan", "hasan", "hasan@gmail.com", 3);
     }
 }

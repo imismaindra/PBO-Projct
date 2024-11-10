@@ -10,7 +10,7 @@ class TransaksiModel{
     private $userModel;
     public function __construct() {
         $this->transaksiDetailModel = new TransaksiDetailModel();
-        $this->brg = new Barang_model();
+        $this->brg = new BarangModel();
         $this->userModel = new Usermodel();
         if (isset($_SESSION['transaksis'])) {
             $this->listTransaksi = unserialize($_SESSION['transaksis']);
@@ -19,16 +19,16 @@ class TransaksiModel{
             $this->initializeDefaultTransaksi();
         }
     }
-
-    public function addTransaksi($Id_User, $Tanggal_Transaksi, $Status_Transaksi, $detailBarang)
+    
+    public function addTransaksi($Id_User,$Kasir, $Tanggal_Transaksi, $Status_Transaksi, $detailBarang)
     {
         // $Id_customer = $this->userModel->getUserById($Id_User);
         $Id_customer = is_object($Id_User) ? $Id_User->Id_User : $this->userModel->getUserById($Id_User);
-
+        // $Kasir=  isset($_SESSION['username']) ? $_SESSION['username'] : 'Guest';
         if($Id_customer == null){
             return false;
         } else {
-            $transaksi = new Transaksi($this->nextId++, $Id_customer, $Tanggal_Transaksi, $Status_Transaksi);
+            $transaksi = new Transaksi($this->nextId++,$Kasir, $Id_customer, $Tanggal_Transaksi, $Status_Transaksi);
     
             foreach ($detailBarang as $detail) {
                 $barang = $this->brg->getBarangById($detail['Id_Barang']); 
@@ -69,7 +69,7 @@ class TransaksiModel{
         $Id_User = 1;
         $Tanggal_Transaksi = date('Y-m-d H:i:s');
         $Status_Transaksi = 'completed';
-
+$kasir = "arip";
         
         $detailBarang = [
             ['Id_Detail' => 1,'Id_Barang' => 1, 'Jumlah_Barang' => 2, 'Harga_Barang' => 50000],
@@ -77,7 +77,7 @@ class TransaksiModel{
         ];
         // $total = 175000;
 
-        $this->addTransaksi($Id_User, $Tanggal_Transaksi, $Status_Transaksi, $detailBarang);
+        $this->addTransaksi($Id_User, $kasir,$Tanggal_Transaksi, $Status_Transaksi, $detailBarang);
     }
 
 }

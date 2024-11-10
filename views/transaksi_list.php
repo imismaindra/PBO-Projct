@@ -50,7 +50,7 @@
                                 <tr class="text-center">
                                     <td class="py-3 px-4 text-blue-600"><?php echo htmlspecialchars($transaksi->Id_Transaksi); ?></td>
                                     <td class="w-1/4 py-3 px-4"><?php echo htmlspecialchars($transaksi->Id_User->username); ?></td> 
-                                    <td class="w-1/4 py-3 px-4">Mas Rusdi</td> 
+                                    <td class="w-1/4 py-3 px-4"><?php echo htmlspecialchars($transaksi->kasir); ?></td> 
                                     <?php foreach ($transaksi->DetailBarang as $detail) { 
                                         $totalHargaKeseluruhan += $detail->Total_Harga; // Menambah ke total keseluruhan
                                     ?>

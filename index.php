@@ -148,7 +148,7 @@ switch ($modul) {
 
     case 'barang':
         $fitur = isset($_GET['fitur']) ? $_GET['fitur'] : null;
-        $obj_barang = new Barang_model();
+        $obj_barang = new BarangModel();
 
         switch ($fitur) {
             case 'add':
@@ -212,7 +212,7 @@ switch ($modul) {
         $fitur = isset($_GET['fitur'])? $_GET['fitur'] : null;
         $obj_transaksi = new TransaksiModel();
         $obj_user = new UserModel();
-        $obj_barang = new Barang_model();
+        $obj_barang = new BarangModel();
         switch ($fitur) {
             case 'list':
                 $listTransaksis = $obj_transaksi->getAllTransaksi();
@@ -221,18 +221,20 @@ switch ($modul) {
             case 'insert':
                 $userModel = new UserModel();
                 $users = $userModel->getUsersByRoleId(2); 
-                $barangModel = new Barang_model();
+                $barangModel = new BarangModel();
                 $barangs = $barangModel->getBarangs();
 
                 include 'views/transaksi_input.php';
                 break;
             case 'add':
-                $barangModel = new Barang_model();
+                $barangModel = new BarangModel();
                 // $Id_User = $obj_user->getUserById($_POST['customer']);
                 $Id_User = $_POST['customer'];
                 $Tanggal_Transaksi = date('Y-m-d H:i:s'); 
                 $Status_Transaksi = 'completed'; 
                 $detailBarang = [];
+                $Kasir = isset($_SESSION['username']) ? $_SESSION['username'] : 'Guest';
+
 
                 foreach ($_POST['barang'] as $index => $barang_id) {
                     if (empty($barang_id)) continue; 
@@ -257,7 +259,7 @@ switch ($modul) {
                 // echo "</pre>";
 
                 if ($Id_User && $Tanggal_Transaksi && $Status_Transaksi && !empty($detailBarang)) {
-                    $obj_transaksi->addTransaksi($Id_User, $Tanggal_Transaksi, $Status_Transaksi, $detailBarang);
+                    $obj_transaksi->addTransaksi($Id_User,$Kasir, $Tanggal_Transaksi, $Status_Transaksi, $detailBarang);
                     header('location: index.php?modul=transaksi&fitur=list');
                     exit;
                 } else {

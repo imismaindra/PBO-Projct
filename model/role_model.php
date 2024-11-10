@@ -89,10 +89,14 @@ class RoleModel
     {
         if (isset($_SESSION['roles'])) {
             $this->roles = unserialize($_SESSION['roles']);
-            $this->nextid = count($this->roles) + 1;
+            $this->nextid = $this->getNextId();
         } else {
             $this->initializeDefaultRole();
         }
+    }
+    private function getNextId()
+    {
+        return !empty($this->roles) ? max(array_column($this->roles, 'role_id')) + 1 : 1;
     }
     public function initializeDefaultRole()
     {

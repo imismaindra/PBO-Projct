@@ -13,7 +13,7 @@ class DashboardModel
 
     public function __construct(){
         $this->usermodel = new UserModel();
-        $this->barangmodel = new Barang_model();
+        $this->barangmodel = new BarangModel();
         $this->transaksimodel = new TransaksiModel();
         $this->transaksiDetailModel = new TransaksiDetailModel(); // Tambahkan model TransaksiDetailModel
     }

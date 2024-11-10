@@ -1,7 +1,7 @@
 <?php 
         $username = isset($_SESSION['username']) ? $_SESSION['username'] : 'Guest';
         $role_name = isset($_SESSION['role_id']) ? $_SESSION['role_id'] : 'No role';
-    ?>
+?>
 <nav class="flex bg-white p-4 shadow-lg">
     <!-- Sidebar Toggle Button -->
     <button @click="sidebarOpen = !sidebarOpen" class="p-1 mr-4">

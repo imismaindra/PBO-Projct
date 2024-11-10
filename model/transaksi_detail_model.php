@@ -7,7 +7,7 @@ class TransaksiDetailModel {
     private $nextId = 1;
     private $barangModel;
     public function __construct() {
-        $this->barangModel = new Barang_model();
+        $this->barangModel = new BarangModel();
         if (isset($_SESSION['transaksiDetails'])) {
             $this->transaksiDetails = unserialize($_SESSION['transaksiDetails']);
             $this->nextId = count($this->transaksiDetails) + 1;
