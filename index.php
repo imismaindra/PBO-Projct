@@ -3,7 +3,7 @@ require_once 'model/role_model.php';
 require_once 'model/user_model.php';
 require_once 'model/barang_model.php';
 require_once 'model/transaksi_model.php';
-
+require_once 'controller/roleController.php';
 session_start();
 if (isset($_GET['modul']) && $_GET['modul'] === 'login') {
     // Verifikasi login
@@ -40,51 +40,28 @@ switch ($modul) {
         include 'views/kosong.php';
         break;
 
-    case 'role':
-        $fitur = isset($_GET['fitur']) ? $_GET['fitur'] : null;
-        $obj_role = new RoleModel();
-
-        switch ($fitur) {
-            case 'add':
-                $role_name = $_POST['role_name'] ?? '';
-                $role_desc = $_POST['role_description'] ?? '';
-                $role_status = $_POST['role_status'] ?? '';
-
-                if ($role_name && $role_desc && $role_status) {
-                    $obj_role->addRole($role_name, $role_desc, $role_status);
-                }
-                header('location: index.php?modul=role');
-                break;
-
-            case 'edit':
-                $role_id = $_GET['role_id'];
-                $role = $obj_role->getRoleById($role_id);
-                include 'views/role_edit.php';
-                break;
-
-            case 'update':
-                $role_id = $_POST['role_id'] ?? '';
-                $role_name = $_POST['role_name'] ?? '';
-                $role_desc = $_POST['role_description'] ?? '';
-                $role_status = $_POST['role_status'] ?? '';
-
-                if ($role_id && $role_name && $role_desc && $role_status) {
-                    $obj_role->update($role_id, $role_name, $role_desc, $role_status);
-                }
-                header('location: index.php?modul=role');
-                break;
-
-            case 'delete':
-                $role_id = $_GET['role_id'];
-                $obj_role->deleteRole($role_id);
-                header('location: index.php?modul=role');
-                break;
-
-            default:
-                $roles = $obj_role->getRoles();
-                include 'views/role_list.php';
-                break;
-        }
+        case 'role':
+            $roleController = new RoleController();
+            $fitur = $_GET['fitur'] ?? 'index';
+        
+            switch ($fitur) {
+                case 'add':
+                    $roleController->add();
+                    break;
+                case 'edit':
+                    $roleController->edit();
+                    break;
+                case 'update':
+                    $roleController->update();
+                    break;
+                case 'delete':
+                    $roleController->delete();
+                    break;
+                default:
+                    $roleController->index();
+                    break;
+            }
+        
         break;
 
     case 'user':
