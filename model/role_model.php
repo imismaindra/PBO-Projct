@@ -102,7 +102,7 @@ class RoleModel
     {
         $this->addRole("Admin", "Administartion", 1);
         $this->addRole("User", "Customer", 1);
-        $this->addRole("Kasir", "Pembayaran", 0);
+        $this->addRole("Kasir", "Pembayaran", 1);
     }
     public function addRole($roleNm, $roleDsc, $roleSts)
     {

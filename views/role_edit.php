@@ -7,10 +7,6 @@
     <title>Update Role</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/alpinejs/2.8.0/alpine.js"></script>
-    <?php
-    $role = $obj_role->getRoleById($_GET['role_id']);
-    ?>
-
 </head>
 
 <body class="bg-gray-100 font-sans leading-normal tracking-normal" x-data="{ sidebarOpen: true }">

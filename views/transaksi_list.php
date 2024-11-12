@@ -43,10 +43,10 @@
                             </tr>
                         </thead>
                         <tbody class="text-gray-700">
-                            <?php if (!empty($listTransaksis)) {
-                                foreach ($listTransaksis as $transaksi) { 
-                                    $totalHargaKeseluruhan = 0;
-                                    ?>
+                                <?php if (!empty($listTransaksis)) {
+                                    foreach ($listTransaksis as $transaksi) { 
+                                        $totalHargaKeseluruhan = 0;
+                                ?>
                                 <tr class="text-center">
                                     <td class="py-3 px-4 text-blue-600"><?php echo htmlspecialchars($transaksi->Id_Transaksi); ?></td>
                                     <td class="w-1/4 py-3 px-4"><?php echo htmlspecialchars($transaksi->Id_User->username); ?></td> 

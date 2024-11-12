@@ -92,9 +92,9 @@
                                                             <span x-text="`Rp. ${barang.harga}`"></span>
                                                         </td>
                                                         <td class="px-6 py-4">
-                                                            <input type="number" name="jumlah[]" class="mt-1 p-2 border border-gray-300 rounded w-1/4" min="1" x-model="barang.jumlah" @input="calculateTotal" required>
+                                                            <input type="number" name="jumlah[]" class="mt-1 p-2 border border-gray-300 rounded w-1/2" min="1" x-model="barang.jumlah" @input="calculateTotal" required>
                                                         </td>
-                                                        <td class="px-6 py-4">
+                                                        <td class="px-1 py-4">
                                                             <span id="total" x-text="`Rp. ${barang.harga * barang.jumlah}`"></span>
                                                         </td>
                                                         <td class="px-6 py-4">

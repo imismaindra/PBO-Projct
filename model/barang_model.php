@@ -23,7 +23,6 @@ class BarangModel
 
     public function initializeDefaultBarang()
     {
-        // Menyediakan data awal untuk barang
         $this->addBarang("Buku", "Buku Tulis", "pcs", "Alat Tulis", 10000, 100);
         $this->addBarang("Pensil", "Pensil 2B", "pcs", "Alat Tulis", 5000, 50);
         $this->addBarang("Penggaris", "Penggaris 30cm", "pcs", "Alat Tulis", 8000, 10);
@@ -31,7 +30,6 @@ class BarangModel
 
     public function addBarang($nama, $deskripsi, $satuan, $kategori, $harga, $stok): void
     {
-        // Validasi harga dan stok untuk mencegah input yang tidak valid
         if ($harga < 0 || $stok < 0) {
             throw new InvalidArgumentException("Harga dan stok harus bernilai positif.");
         }

@@ -28,7 +28,7 @@
     <div class="flex h-screen">
         <!-- Sidebar -->
 
-        <div :class="sidebarOpen ? 'translate-x-0' : '-translate-x-full'" class="flex h-screen">
+        <div :class="sidebarOpen ? 'translate-x-0' : '-translate-x-full'" class="flex">
 
             <?php include 'includes/sidebar.php'; ?>
         </div>
